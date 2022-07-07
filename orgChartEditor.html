@@ -3,13 +3,27 @@
   <html lang="en">
   <body>
   <script src="https://unpkg.com/gojs@2.2.12/release/go.js"></script>
+  <header>
+    Russo Family Tree
+  </header>
+
   <p>
-    This is a minimalist HTML and JavaScript skeleton of the GoJS Sample
-    <a href="https://gojs.net/latest/samples/orgChartEditor.html">orgChartEditor.html</a>. It was automatically generated from a button on the sample page,
-    and does not contain the full HTML. It is intended as a starting point to adapt for your own usage.
-    For many samples, you may need to inspect the
-    <a href="https://github.com/NorthwoodsSoftware/GoJS/blob/master/samples/orgChartEditor.html">full source on Github</a>
-    and copy other files or scripts.
+    Each generation is color coded.
+  </p>
+  <p>
+    Double click on a person in order to add a child, or double click in the diagram background to add a new oldest ancestor.
+  </p>
+  <p>
+    Drag a person onto another in order to change relationships.
+    Right-click or tap-hold a person to bring up a context menu which allows you to:
+    </p><ul>
+      <li>Clear Person - clear the name and details of that person</li>
+      <li>Remove Person - removes the person entirely and reparents any children</li>
+      <li>Remove Person's Line - removes the person and all current children</li>
+    </ul>
+  <p></p>
+  <p>
+    Click on a person to edit/update their name/facts.
   </p>
   <div id="allSampleContent" class="p-4 w-full">
 
@@ -360,36 +374,7 @@
   <div>
     <div id="myInspector" class="inspector"></div>
   </div>
-  <p>
-    This editable organizational chart sample color-codes the Nodes according to the tree level in the hierarchy.
-  </p>
-  <p>
-    Double click on a node in order to add an employee, or double click in the diagram background to add a new boss.
-    Double clicking the diagram uses the <a href="../api/symbols/ClickCreatingTool.html" target="api">ClickCreatingTool</a> with a custom <a href="../api/symbols/ClickCreatingTool.html#insertPart" target="api">ClickCreatingTool.insertPart</a>
-    to scroll to the new node and start editing the <a href="../api/symbols/TextBlock.html" target="api">TextBlock</a> for its name .
-  </p>
-  <p>
-    Drag a node onto another in order to change relationships.
-    Right-click or tap-hold a Node to bring up a context menu which allows you to:
-    </p><ul>
-      <li>Vacate Position - remove the information specfic to the current person in that role</li>
-      <li>Remove Role - removes the role entirely and reparents any children</li>
-      <li>Remove Department - removes the role and the whole subtree</li>
-    </ul>
-    Deleting a Node or Link will orphan the child Node and generate a new tree.
-    A custom SelectionDeleting <a href="../api/symbols/DiagramEvent.html" target="api">DiagramEvent</a> listener will clear out the boss info when the parent is removed.
-  <p></p>
-  <p>
-    Select a node to edit/update node data values. This sample uses the <a href="https://unpkg.com/gojs@2.2.12/extensions/DataInspector.html">Data Inspector</a> extension to display and modify Part data.
-  </p>
-  <p>
-    To learn how to build an org chart from scratch with GoJS, see the <a href="../learn/index.html">Getting Started tutorial</a>.
-  </p>
-  <p>
-    If you want to have some "assistant" nodes on the side, above the regular reports,
-    see the <a href="orgChartAssistants.html">Org Chart Assistants</a> sample, which is a copy of this sample
-    that uses a custom <a href="../api/symbols/TreeLayout.html" target="api">TreeLayout</a> to position "assistants" that way.
-  </p>
+
   <div>
     <div>
       <button id="SaveButton" onclick="save()" disabled="">Save</button>
@@ -407,7 +392,4 @@
       }
     </textarea>
   </div>
-<p class="text-xs">GoJS version 2.2.12. Copyright 1998-2022 by Northwoods Software.</p></div>
-    <p><a href="https://github.com/NorthwoodsSoftware/GoJS/blob/master/samples/orgChartEditor.html" target="_blank">View this sample page's source on GitHub</a></p></div>
-  </body>
   </html>
