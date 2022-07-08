@@ -3,6 +3,13 @@
   <html lang="en">
   <body>
   <script src="https://unpkg.com/gojs@2.2.12/release/go.js"></script>
+  <h3>
+    TODO:
+    <p>
+      - Images for ppl (findHeadShot(key))
+    </p>
+  </h3>
+
   <h1>
     Russo Family Tree
   </h1>
@@ -162,8 +169,8 @@
 
       // This converter is used by the Picture.
       function findHeadShot(key) {
-        if (key < 0 || key > 16) return "images/HSnopic.jpg"; // There are only 16 images on the server
-        return "images/HS" + key + ".jpg"
+        //if (key < 0 || key > 16) return "images/HSnopic.jpg"; // There are only 16 images on the server
+        //return "images/HS" + key + ".jpg"
       }
 
       // define the Node template
@@ -357,7 +364,15 @@
       document.getElementById("mySavedModel").value = myDiagram.model.toJson();
       myDiagram.isModified = false;
     }
-    function load() {
+    async function load() {
+      const email = "ai974@nyu.edu";
+      const baseUrl = "https://4frehicdad.execute-api.us-east-1.amazonaws.com/default/ddbEndpoint?email=";
+      const response = await fetch(baseUrl + email, {
+        method: "GET",
+        mode: "no-cors"
+      });
+      console.log(response);
+
       myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
       // make sure new data keys are unique positive integers
       var lastkey = 1;
