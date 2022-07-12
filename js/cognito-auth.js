@@ -7,45 +7,15 @@ var poolData = {
     ClientId: _config.cognito.userPoolClientId
 };
 
+var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
 
 export function myGetCurrentUser() {
-
-    var userPool;
-
-    if (!(_config.cognito.userPoolId &&
-          _config.cognito.userPoolClientId &&
-          _config.cognito.region)) {
-        $('#noCognitoMessage').show();
-        return;
-    }
-
-    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-    if (typeof AWSCognito !== 'undefined') {
-        AWSCognito.config.region = _config.cognito.region;
-    }
-
-    console.log(userPool.getUsername());
     return userPool.getUsername(), userPool.getCurrentUser();
 }
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
-
-    var userPool;
-
-    if (!(_config.cognito.userPoolId &&
-          _config.cognito.userPoolClientId &&
-          _config.cognito.region)) {
-        $('#noCognitoMessage').show();
-        return;
-    }
-
-    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-    if (typeof AWSCognito !== 'undefined') {
-        AWSCognito.config.region = _config.cognito.region;
-    }
 
     WildRydes.signOut = function signOut() {
         userPool.getCurrentUser().signOut();
