@@ -371,7 +371,7 @@
         method: "GET",
         mode: "no-cors"
       });
-      console.log(response);
+      console.log(response.Item);
 
       myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
       // make sure new data keys are unique positive integers
