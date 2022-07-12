@@ -43,9 +43,9 @@
         <link rel="stylesheet" href="https://unpkg.com/gojs@2.2.12/extensions/DataInspector.css">
         <script src="https://unpkg.com/gojs@2.2.12/extensions/DataInspector.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="amazon-cognito-identity.min.js"></script>
 
-        <script type="module" id="code">
-            import { myGetCurrentUser } from "./js/cognito-auth.js";
+        <script id="code">
             function init() {
                 // Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
                 // For details, see https://gojs.net/latest/intro/buildingObjects.html
@@ -374,7 +374,7 @@
                 };
 
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-                console.log(userPool.getUsername(), userPool.myGetCurrentUser());
+                console.log(userPool.getCurrentUser());
 
                 $.ajax({
                     method: 'GET',
