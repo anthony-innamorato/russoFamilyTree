@@ -369,7 +369,6 @@
       const baseUrl = "https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride";
       const response = await fetch(baseUrl + '?email=' + email, {
         method: "GET",
-        mode: "no-cors"
       });
       console.log(response["Item"]);
 
