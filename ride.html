@@ -367,10 +367,10 @@
     async function load() {
       const email = "ai974@nyu.edu";
       const baseUrl = "https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride";
-      const response = await fetch(baseUrl + '?email=' + email, {
+      const apiResponse = await fetch(baseUrl + '?email=' + email, {
         method: "GET",
       });
-      console.log(response["Item"]);
+      console.log(apiResponse);
 
       myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
       // make sure new data keys are unique positive integers
