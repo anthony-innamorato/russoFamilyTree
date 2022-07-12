@@ -370,7 +370,7 @@
       const apiResponse = await fetch(baseUrl + '?email=' + email, {
         method: "GET",
       });
-      console.log(apiResponse.body);
+      console.log(apiResponse.json());
       console.log(apiResponse.body["Item"]);
 
       myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
