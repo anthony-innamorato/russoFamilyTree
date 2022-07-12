@@ -372,6 +372,7 @@
       });
       const data = await apiResponse.json();
       const existingTree = data.Item.tree.S;
+      console.log(existingTree);
 
       myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
       // make sure new data keys are unique positive integers
