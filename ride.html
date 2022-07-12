@@ -371,7 +371,7 @@
         method: "GET",
       });
       console.log(apiResponse.json());
-      console.log(apiResponse.body["Item"]);
+      console.log(apiResponse.json()["Item"]);
 
       myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
       // make sure new data keys are unique positive integers
