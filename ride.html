@@ -374,7 +374,7 @@
                 };
 
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-                console.log(userPool.getCurrentUser());
+                console.log(userPool.getCurrentUser().username.replace('@', '-at-'));
 
                 $.ajax({
                     method: 'GET',
