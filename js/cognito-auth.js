@@ -2,20 +2,23 @@
 
 var WildRydes = window.WildRydes || {};
 
-var poolData = {
-    UserPoolId: _config.cognito.userPoolId,
-    ClientId: _config.cognito.userPoolClientId
-};
-
-var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-
-export function myGetCurrentUser() {
-    return userPool.getUsername(), userPool.getCurrentUser();
-}
-
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
+
+    var userPool;
+
+    if (!(_config.cognito.userPoolId &&
+          _config.cognito.userPoolClientId &&
+          _config.cognito.region)) {
+        $('#noCognitoMessage').show();
+        return;
+    }
+
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+    if (typeof AWSCognito !== 'undefined') {
+        AWSCognito.config.region = _config.cognito.region;
+    }
 
     WildRydes.signOut = function signOut() {
         userPool.getCurrentUser().signOut();
