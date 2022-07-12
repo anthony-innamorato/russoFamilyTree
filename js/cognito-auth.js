@@ -2,6 +2,31 @@
 
 var WildRydes = window.WildRydes || {};
 
+export function myGetCurrentUser() {
+    var poolData = {
+        UserPoolId: _config.cognito.userPoolId,
+        ClientId: _config.cognito.userPoolClientId
+    };
+
+    var userPool;
+
+    if (!(_config.cognito.userPoolId &&
+          _config.cognito.userPoolClientId &&
+          _config.cognito.region)) {
+        $('#noCognitoMessage').show();
+        return;
+    }
+
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+    if (typeof AWSCognito !== 'undefined') {
+        AWSCognito.config.region = _config.cognito.region;
+    }
+
+    console.log(userPool.getUsername());
+    return userPool.getUsername();
+}
+
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
@@ -169,30 +194,5 @@ var WildRydes = window.WildRydes || {};
                 alert(err);
             }
         );
-    }
-
-    function myGetCurrentUser() {
-        var poolData = {
-            UserPoolId: _config.cognito.userPoolId,
-            ClientId: _config.cognito.userPoolClientId
-        };
-    
-        var userPool;
-    
-        if (!(_config.cognito.userPoolId &&
-              _config.cognito.userPoolClientId &&
-              _config.cognito.region)) {
-            $('#noCognitoMessage').show();
-            return;
-        }
-    
-        userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    
-        if (typeof AWSCognito !== 'undefined') {
-            AWSCognito.config.region = _config.cognito.region;
-        }
-
-        console.log(userPool.getUsername());
-        return userPool.getUsername();
     }
 }(jQuery));
