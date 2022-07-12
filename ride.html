@@ -368,7 +368,13 @@
                 myDiagram.isModified = false;
             }
             async function load() {
-                console.log(myGetCurrentUser());
+                var poolData = {
+                    UserPoolId: 'us-east-1_AywS50gwH',
+                    ClientId: '7f4kc5db08r91dgbbm8vdcqed1'
+                };
+
+                var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+                console.log(userPool.getUsername(), userPool.myGetCurrentUser());
 
                 $.ajax({
                     method: 'GET',
