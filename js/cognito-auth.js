@@ -2,11 +2,13 @@
 
 var WildRydes = window.WildRydes || {};
 
+var poolData = {
+    UserPoolId: _config.cognito.userPoolId,
+    ClientId: _config.cognito.userPoolClientId
+};
+
+
 export function myGetCurrentUser() {
-    var poolData = {
-        UserPoolId: _config.cognito.userPoolId,
-        ClientId: _config.cognito.userPoolClientId
-    };
 
     var userPool;
 
@@ -24,16 +26,11 @@ export function myGetCurrentUser() {
     }
 
     console.log(userPool.getUsername());
-    return userPool.getUsername();
+    return userPool.getUsername(), userPool.getCurrentUser();
 }
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
-
-    var poolData = {
-        UserPoolId: _config.cognito.userPoolId,
-        ClientId: _config.cognito.userPoolClientId
-    };
 
     var userPool;
 
