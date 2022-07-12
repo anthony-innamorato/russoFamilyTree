@@ -374,11 +374,12 @@
                 };
 
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-                console.log(userPool.getCurrentUser().username.replace('@', '-at-'));
+                const username = userPool.getCurrentUser().username.replace('@', '-at-');
+                console.log(username);
 
                 $.ajax({
                     method: 'GET',
-                    url: 'https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride?email=ai974@nyu.edu',
+                    url: 'https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride?email=' + username,
                     contentType: 'application/json',
                     error: function ajaxError(jqXHR, textStatus, errorThrown) {
                         console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
