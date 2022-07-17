@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<body>
+<body style="background-color:lightgrey;">
     <script src="https://unpkg.com/gojs@2.2.12/release/go.js"></script>
     <h1>
         Russo Family Tree
@@ -385,7 +385,7 @@
                 }).done(function (response) {
                     console.log(response);
                     alert("data submitted");
-                });               
+                });
             }
             async function load() {
                 var poolData = {
@@ -451,5 +451,4 @@
                     <button onclick="submit()">Submit</button>
                 </div>
             </div>
-
 </html>
