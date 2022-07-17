@@ -3,19 +3,6 @@
 
 <body>
     <script src="https://unpkg.com/gojs@2.2.12/release/go.js"></script>
-    <h3>
-        TODO:
-        <p>
-            - signin functionality (/signin.html?)
-        </p>
-        <p>
-            - notif for signin
-        </p>
-        <p>
-            - redesign site
-        </p>
-    </h3>
-
     <h1>
         Russo Family Tree
     </h1>
@@ -389,6 +376,7 @@
                 }
                 console.log(username);
                 console.log(JSON.stringify(myDiagram.model));
+                alert("data submitted");
                 $.ajax({
                     method: 'PUT',
                     url: 'https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride?email=' + username,
@@ -396,6 +384,7 @@
                     data: JSON.stringify(myDiagram.model)
                 }).done(function (response) {
                     console.log(response);
+                    alert("data submitted");
                 });               
             }
             async function load() {
