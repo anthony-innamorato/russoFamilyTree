@@ -3,15 +3,26 @@ import json
 
 client = boto3.client('dynamodb')
 
-def put():
+def put(email, body):
+  new = ""
+  i = 1
+  while i < len(body) - 1:
+    if body[i] == "\\":
+      print(body[i:i+5])
+      if body[i+1] == "n":
+        print("here")
+        i += 1
+    else:
+      new += body[i]
+    i += 1
   data = client.put_item(
     TableName='individualTrees',
     Item={
         'email': {
-          'S': 'test2@gmail.com'
+          'S': email
         },
         'tree': {
-          'S': '{"class": "go.TreeModel", "nodeDataArray": [{"key":1, "name":"Stella Payne Diaz", "title":"CEO"}, {"key":2, "name":"Luke Warm", "title":"VP Marketing/Sales", "parent":1}, {"key":3, "name":"Meg Meehan Hoffa", "title":"Sales", "parent":2}, {"key":4, "name":"Peggy Flaming", "title":"VP Engineering", "parent":1, "comments":"test comment"}]}'
+          'S': new
         }
     }
   )
@@ -64,6 +75,9 @@ def lambda_handler(event, context):
       print(f"item: {item}")
       return item
     elif event["httpMethod"] == "PUT":
-      print(f"put: {put()}")
+      body = event["body"]
+      response = put(email, body)
+      print(f"put: {response}")
+      return response
     else:
       print("error: neither put nor get")
