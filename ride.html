@@ -6,10 +6,10 @@
     <h3>
         TODO:
         <p>
-            - POST
+            - PUT
         </p>
         <p>
-            - change save and load to submit only
+            - signin functionality (/signin.html?)
         </p>
     </h3>
 
@@ -372,12 +372,25 @@
             }
 
             function submit() {
-                let submitData = "test";
+                var poolData = {
+                    UserPoolId: 'us-east-1_AywS50gwH',
+                    ClientId: '7f4kc5db08r91dgbbm8vdcqed1'
+                };
+
+                var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+                let username;
+                if (!userPool.getCurrentUser()) {
+                    username = "tonyinnamorato9153@gmail.com";
+                } else {
+                    username = userPool.getCurrentUser().username.replace('-at-', '@');
+                }
+                console.log(username);
+                console.log(JSON.stringify(myDiagram.model));
                 $.ajax({
                     method: 'PUT',
                     url: 'https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride?email=' + username,
                     contentType: 'application/json',
-                    data: JSON.stringify(submitData)
+                    data: JSON.stringify(myDiagram.model)
                 }).done(function (response) {
                     console.log(response);
                 });               
@@ -391,7 +404,7 @@
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
                 let username;
                 if (!userPool.getCurrentUser()) {
-                    username = "ai974@nyu.edu";
+                    username = "tonyinnamorato9153@gmail.com";
                 } else {
                     username = userPool.getCurrentUser().username.replace('-at-', '@');
                 }
@@ -404,6 +417,7 @@
                 }).done(function (response) {
                     console.log(response);
                     if (response.Item) {
+                        console.log(response.Item.tree.S)
                         let existingTree = JSON.parse(response.Item.tree.S);
                         console.log(existingTree);
                         myDiagram.model = go.Model.fromJson(existingTree);
