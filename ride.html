@@ -6,9 +6,10 @@
     <h3>
         TODO:
         <p>
-            - Images for ppl (findHeadShot(key))
-            - condition to get from table
             - POST
+        </p>
+        <p>
+            - change save and load to submit only
         </p>
     </h3>
 
@@ -369,6 +370,18 @@
                 document.getElementById("mySavedModel").value = myDiagram.model.toJson();
                 myDiagram.isModified = false;
             }
+
+            function submit() {
+                let submitData = "test";
+                $.ajax({
+                    method: 'PUT',
+                    url: 'https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride?email=' + username,
+                    contentType: 'application/json',
+                    data: JSON.stringify(submitData)
+                }).done(function (response) {
+                    console.log(response);
+                });               
+            }
             async function load() {
                 var poolData = {
                     UserPoolId: 'us-east-1_AywS50gwH',
@@ -376,25 +389,24 @@
                 };
 
                 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-                const username = userPool.getCurrentUser().username.replace('-at-', '@');
+                let username;
+                if (!userPool.getCurrentUser()) {
+                    username = "ai974@nyu.edu";
+                } else {
+                    username = userPool.getCurrentUser().username.replace('-at-', '@');
+                }
                 console.log(username);
 
                 $.ajax({
                     method: 'GET',
                     url: 'https://cdhf50293g.execute-api.us-east-1.amazonaws.com/prod/ride?email=' + username,
-                    contentType: 'application/json',
-                    error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                        console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-                        console.error('Response: ', jqXHR.responseText);
-                        alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-                    }
+                    contentType: 'application/json'
                 }).done(function (response) {
                     console.log(response);
                     if (response.Item) {
                         let existingTree = JSON.parse(response.Item.tree.S);
                         console.log(existingTree);
                         myDiagram.model = go.Model.fromJson(existingTree);
-                        console.log("here");
                     } else {
                         myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
                     }
@@ -429,17 +441,9 @@
 
             <div>
                 <div>
-                    <button id="SaveButton" onclick="save()" disabled="">Save</button>
-                    <button onclick="load()">Load</button>
-                    Diagram Model saved in JSON format:
+                    <!-- <button id="SaveButton" onclick="save()" disabled="">Save</button> -->
+                    <button onclick="submit()">Submit</button>
                 </div>
-                <textarea id="mySavedModel" style="width:100%; height:270px;">
-      {"class": "go.TreeModel",
-        "nodeDataArray": [
-          {"key":1, "name":"Stella Payne Diaz", "title":"CEO"}
-        ]
-      }
-    </textarea>
             </div>
 
 </html>
